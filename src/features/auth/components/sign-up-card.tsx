@@ -23,7 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { registerSchema } from "../schemas";
-import { useMutation } from "@tanstack/react-query";
 import { useRegister } from "../api/use-register";
 
 export const SignUpCard = () => {
