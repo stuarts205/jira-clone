@@ -1,0 +1,1 @@
+export const AUTH_COOKIE = "seventeensixtyone-jira-clone-session";
