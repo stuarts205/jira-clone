@@ -10,7 +10,6 @@ import {
 } from "react-icons/go";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { usePathname } from "next/navigation";
-import path from "path";
 
 const routes = [
   {
@@ -52,7 +51,7 @@ export const Navigation = () => {
         return (
           <Link key={route.href} href={fullHref}>
             <div className={cn(
-                'flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:text-primary transistion text-neutral-500',
+                'flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:text-primary transition text-neutral-500',
                 isActive && 'bg-white shadow hover:opacity-100 text-primary'
             )}>
                 <Icon className="size-5 text-neutral-500" />
