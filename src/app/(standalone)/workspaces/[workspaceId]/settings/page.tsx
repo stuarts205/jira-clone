@@ -1,8 +1,8 @@
-import { getCurrent } from "@/features/auth/actions";
+import { getCurrent } from "@/features/auth/queries";
 import React from "react";
 import { redirect } from "next/navigation";
 import { EditWorkspaceForm } from "@/features/workspaces/components/edit-workspace-form";
-import { getWorkspace } from "@/features/workspaces/actions";
+import { getWorkspace } from "@/features/workspaces/queries";
 
 interface WorkspaceSettingsIdPageProps {
   params: {
