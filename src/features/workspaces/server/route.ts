@@ -86,17 +86,17 @@ const app = new Hono()
     }
   )
   .patch(
-    '/:workspaceId',
+    "/:workspaceId",
     sessionMiddleware,
-    zValidator('form', updateWorkspaceSchema),
+    zValidator("form", updateWorkspaceSchema),
     async (c) => {
-      const databases = c.get('databases');
-      const storage = c.get('storage');
-      const user = c.get('user');
+      const databases = c.get("databases");
+      const storage = c.get("storage");
+      const user = c.get("user");
 
       const {} = c.req.param();
       const { workspaceId } = c.req.param();
-      const { name, image } = c.req.valid('form');
+      const { name, image } = c.req.valid("form");
 
       const member = await getMember({
         databases,
@@ -105,7 +105,7 @@ const app = new Hono()
       });
 
       if (!member || member.role !== MemberRole.ADMIN) {
-        return c.json({ error: 'Unauthorized' }, 403);
+        return c.json({ error: "Unauthorized" }, 403);
       }
 
       let uploadedImageUrl: string | undefined = undefined;
@@ -123,9 +123,8 @@ const app = new Hono()
 
         uploadedImageUrl = `data:image/png;base64,${Buffer.from(
           arrayBuffer
-        ).toString("base64")}`
-      }
-      else {
+        ).toString("base64")}`;
+      } else {
         uploadedImageUrl = image;
       }
 
@@ -137,10 +136,28 @@ const app = new Hono()
           name,
           imageUrl: uploadedImageUrl,
         }
-      )
+      );
 
       return c.json({ data: workspace });
     }
   )
+  .delete("/:workspaceId", sessionMiddleware, async (c) => {
+    const databases = c.get("databases");
+    const user = c.get("user");
+    const { workspaceId } = c.req.param();
+
+    const member = await getMember({
+      databases,
+      workspaceId,
+      userId: user.$id,
+    });
+    if (!member || member.role !== MemberRole.ADMIN) {
+      return c.json({ error: "Unauthorized" }, 403);
+    }
+
+    await databases.deleteDocument(DATABASE_ID, WORKSPACES_ID, workspaceId);
+
+    return c.json({ data: { $id: workspaceId } });
+  });
 
 export default app;
