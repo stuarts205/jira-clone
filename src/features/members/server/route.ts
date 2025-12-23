@@ -35,7 +35,7 @@ const app = new Hono()
                 [Query.equal('workspaceId', workspaceId)]
             )
             
-            const populateedMembers = await Promise.all(
+            const populatedMembers = await Promise.all(
                 members.documents.map(async (member) => {
                     const user = await users.get(member.userId);
                     return {
@@ -49,7 +49,7 @@ const app = new Hono()
             return c.json({
                 data: {
                     ...members,
-                    documents: populateedMembers
+                    documents: populatedMembers
                 }
             })
         }
