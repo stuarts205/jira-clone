@@ -9,7 +9,7 @@ const WorkspaceIdPage = async () => {
       redirect('/sign-in');
     }
   return (
-    <div>WorkspaceIdPage</div>
+    <div>Workspace Id</div>
   )
 }
 
